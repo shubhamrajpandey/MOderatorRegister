@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import axios, { AxiosError } from "axios";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast, Toaster } from "react-hot-toast";
 
@@ -13,7 +12,6 @@ interface ModeratorFormInput {
   username: string;
   password: string;
   confirmPassword: string;
-  moderatorKey: string;
   terms: boolean;
 }
 
@@ -50,7 +48,6 @@ export default function ModeratorRegisterForm() {
         {
           username: data.username,
           password: data.password,
-          inviteToken: data.moderatorKey,
         }
       );
 
@@ -72,7 +69,7 @@ export default function ModeratorRegisterForm() {
   };
 
   return (
-    <div className="flex items-center justify-center flex-grow bg-[#F4F4F4] px-4 md:px-20 py-10">
+    <div className="flex items-center justify-center flex-grow bg-[#F4F4F4] px-4 md:px-20 py-10 md:py-40">
       <Toaster position="top-center" reverseOrder={false} />
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-around">
         {/* Form Section */}
@@ -159,26 +156,6 @@ export default function ModeratorRegisterForm() {
             </span>
           )}
 
-          {/* Moderator Key */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1 text-[16px]">
-              Moderator Key
-            </label>
-            <input
-              type="text"
-              placeholder="Enter invite token"
-              {...register("moderatorKey", {
-                required: "Please enter the invite token",
-              })}
-              className="w-full md:w-[90%] mt-1 px-4 py-3 rounded-[12px] border border-gray-300 focus:ring-2 focus:ring-green-500 outline-none"
-            />
-            {errors.moderatorKey && (
-              <span className="text-red-500 text-xs mt-1 block">
-                {errors.moderatorKey.message}
-              </span>
-            )}
-          </div>
-
           {/* Checkbox */}
           <div className="flex items-center mb-4">
             <input
@@ -208,16 +185,7 @@ export default function ModeratorRegisterForm() {
             {loading ? "Registering..." : "Sign Up"}
           </button>
 
-          {/* Login Link */}
-          <p className="text-sm py-6 text-center">
-            Already have an account?{" "}
-            <Link
-              href="/moderatorsignin"
-              className="text-green-600 hover:underline"
-            >
-              Log in
-            </Link>
-          </p>
+          
         </form>
 
         {/* Right Side Image */}
