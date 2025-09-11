@@ -13,7 +13,7 @@ interface ModeratorFormInput {
   username: string;
   password: string;
   confirmPassword: string;
-  moderatorKey: string; // maps to inviteToken
+  moderatorKey: string;
   terms: boolean;
 }
 
@@ -50,14 +50,14 @@ export default function ModeratorRegisterForm() {
         {
           username: data.username,
           password: data.password,
-          inviteToken: data.moderatorKey, // ✅ required by API
+          inviteToken: data.moderatorKey,
         }
       );
 
       if (response.status === 201 || response.status === 200) {
         toast.success("Moderator registered successfully!", { id: toastId });
         reset();
-        router.push("/login"); // redirect to login after success
+        router.push("/login");
       } else {
         toast.error("Registration failed. Try again.", { id: toastId });
       }
@@ -72,15 +72,15 @@ export default function ModeratorRegisterForm() {
   };
 
   return (
-    <div className="flex items-center justify-center flex-grow bg-[#F4F4F4] px-20 py-30">
+    <div className="flex items-center justify-center flex-grow bg-[#F4F4F4] px-4 md:px-20 py-10">
       <Toaster position="top-center" reverseOrder={false} />
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-around">
-        {/* Left side form */}
+        {/* Form Section */}
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-1/3 max-w-md bg-[#F4F4F4] rounded-md font-poppins mt-20"
+          className="w-full md:w-1/3 max-w-md bg-[#F4F4F4] rounded-md font-poppins mt-10 md:mt-20"
         >
-          <h1 className="text-[38px] tracking-[0.7px] font-medium mb-6 text-center md:text-left">
+          <h1 className="text-3xl md:text-[38px] tracking-[0.7px] font-medium mb-6 text-center md:text-left">
             Account Registration
           </h1>
 
@@ -95,7 +95,7 @@ export default function ModeratorRegisterForm() {
               {...register("username", {
                 required: "Please enter your username",
               })}
-              className="w-[90%] mt-1 px-4 py-3 rounded-[12px] border border-gray-300 focus:ring-2 focus:ring-green-500 outline-none"
+              className="w-full md:w-[90%] mt-1 px-4 py-3 rounded-[12px] border border-gray-300 focus:ring-2 focus:ring-green-500 outline-none"
             />
             {errors.username && (
               <span className="text-red-500 text-xs mt-1 block">
@@ -105,7 +105,7 @@ export default function ModeratorRegisterForm() {
           </div>
 
           {/* Password */}
-          <div className="mb-4 relative w-[90%]">
+          <div className="mb-4 relative w-full md:w-[90%]">
             <label className="block text-sm font-medium mb-1 text-[16px]">
               Password
             </label>
@@ -129,7 +129,7 @@ export default function ModeratorRegisterForm() {
           </div>
 
           {/* Confirm Password */}
-          <div className="mb-4 relative w-[90%]">
+          <div className="mb-4 relative w-full md:w-[90%]">
             <label className="block text-sm font-medium mb-1 text-[16px]">
               Confirm Password
             </label>
@@ -152,7 +152,7 @@ export default function ModeratorRegisterForm() {
             )}
           </div>
 
-          {/* Password Match Check */}
+          {/* Password Match */}
           {!isMatching && (
             <span className="text-red-600 text-xs block mb-4">
               Passwords do not match
@@ -170,7 +170,7 @@ export default function ModeratorRegisterForm() {
               {...register("moderatorKey", {
                 required: "Please enter the invite token",
               })}
-              className="w-[90%] mt-1 px-4 py-3 rounded-[12px] border border-gray-300 focus:ring-2 focus:ring-green-500 outline-none"
+              className="w-full md:w-[90%] mt-1 px-4 py-3 rounded-[12px] border border-gray-300 focus:ring-2 focus:ring-green-500 outline-none"
             />
             {errors.moderatorKey && (
               <span className="text-red-500 text-xs mt-1 block">
@@ -199,10 +199,10 @@ export default function ModeratorRegisterForm() {
             </span>
           )}
 
-          {/* Submit Button */}
+          {/* Submit */}
           <button
             type="submit"
-            className="w-[90%] bg-[#74BF44] text-white py-3 rounded-[12px] text-sm font-semibold cursor-pointer hover:bg-green-600"
+            className="w-full md:w-[90%] bg-[#74BF44] text-white py-3 rounded-[12px] text-sm font-semibold cursor-pointer hover:bg-green-600"
             disabled={loading}
           >
             {loading ? "Registering..." : "Sign Up"}
