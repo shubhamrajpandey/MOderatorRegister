@@ -48,6 +48,7 @@ export default function ModeratorRegisterForm() {
         {
           username: data.username,
           password: data.password,
+          inviteToken: "",
         }
       );
 
@@ -184,8 +185,6 @@ export default function ModeratorRegisterForm() {
           >
             {loading ? "Registering..." : "Sign Up"}
           </button>
-
-          
         </form>
 
         {/* Right Side Image */}
