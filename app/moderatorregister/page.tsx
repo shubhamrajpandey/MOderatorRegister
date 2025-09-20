@@ -37,7 +37,10 @@ export default function ModeratorRegisterForm() {
   const token = searchParams.get("token");
 
   const onSubmit = async (data: ModeratorFormInput) => {
-    console.log(token);
+    if (!token) {
+      toast.error("Invite token is missing");
+      return;
+    }
     if (!isMatching) {
       toast.error("Passwords do not match");
       return;
