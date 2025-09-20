@@ -1,14 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useForm } from "react-hook-form";
 import axios, { AxiosError } from "axios";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast, Toaster } from "react-hot-toast";
-import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 
 interface ModeratorFormInput {
   username: string;
@@ -17,7 +15,7 @@ interface ModeratorFormInput {
   terms: boolean;
 }
 
-export default function ModeratorRegisterForm() {
+function ModeratorRegisterFormInner() {
   const {
     register,
     handleSubmit,
@@ -36,6 +34,7 @@ export default function ModeratorRegisterForm() {
   const password = watch("password");
   const confirmPassword = watch("confirmPassword");
   const isMatching = password === confirmPassword;
+
   useEffect(() => {
     const t = searchParams.get("token");
     setToken(t);
@@ -46,7 +45,6 @@ export default function ModeratorRegisterForm() {
       toast.error("Invite token is missing");
       return;
     }
-    console.log(token);
     if (!isMatching) {
       toast.error("Passwords do not match");
       return;
@@ -152,7 +150,9 @@ export default function ModeratorRegisterForm() {
             />
             <div
               className="absolute right-3 top-[48px] cursor-pointer"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              onClick={() =>
+                setShowConfirmPassword(!showConfirmPassword)
+              }
             >
               {showConfirmPassword ? <FiEyeOff /> : <FiEye />}
             </div>
@@ -212,5 +212,13 @@ export default function ModeratorRegisterForm() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ModeratorRegisterForm() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ModeratorRegisterFormInner />
+    </Suspense>
   );
 }
