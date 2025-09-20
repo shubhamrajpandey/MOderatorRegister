@@ -41,6 +41,7 @@ export default function ModeratorRegisterForm() {
       toast.error("Invite token is missing");
       return;
     }
+    console.log(token);
     if (!isMatching) {
       toast.error("Passwords do not match");
       return;
