@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast, Toaster } from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 interface ModeratorFormInput {
   username: string;
@@ -29,12 +30,16 @@ export default function ModeratorRegisterForm() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const searchParams = useSearchParams();
+  const [token, setToken] = useState<string | null>(null);
 
   const password = watch("password");
   const confirmPassword = watch("confirmPassword");
   const isMatching = password === confirmPassword;
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token");
+  useEffect(() => {
+    const t = searchParams.get("token");
+    setToken(t);
+  }, [searchParams]);
 
   const onSubmit = async (data: ModeratorFormInput) => {
     if (!token) {
