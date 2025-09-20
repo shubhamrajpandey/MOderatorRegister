@@ -92,7 +92,7 @@ export default function ModeratorRegisterForm() {
           className="w-full md:w-1/3 max-w-md bg-[#F4F4F4] rounded-md font-poppins mt-10 md:mt-20"
         >
           <h1 className="text-3xl md:text-[38px] tracking-[0.7px] font-medium mb-6 text-center md:text-left">
-            Account Registration
+            Account Registration checking if the web is updating
           </h1>
 
           {/* Username */}
