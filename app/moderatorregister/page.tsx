@@ -7,6 +7,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast, Toaster } from "react-hot-toast";
+import { useSearchParams } from "next/navigation";
 
 interface ModeratorFormInput {
   username: string;
@@ -32,8 +33,11 @@ export default function ModeratorRegisterForm() {
   const password = watch("password");
   const confirmPassword = watch("confirmPassword");
   const isMatching = password === confirmPassword;
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
 
   const onSubmit = async (data: ModeratorFormInput) => {
+    console.log(token);
     if (!isMatching) {
       toast.error("Passwords do not match");
       return;
@@ -48,7 +52,7 @@ export default function ModeratorRegisterForm() {
         {
           username: data.username,
           password: data.password,
-          inviteToken: "",
+          inviteToken: token,
         }
       );
 
